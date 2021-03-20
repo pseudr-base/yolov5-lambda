@@ -83,8 +83,38 @@ def handler(event, context):
     with open(SAVE_PATH,'rb') as f:
         img_b64 = base64.b64encode(f.read()).decode('utf-8')
     print("done")
-    labels = set(labels)
-    response = {'img':img_b64, 'label':labels}
+    
+    # label exchange
+    l_names = ['N','R','SR','UR',
+               'Usagi','Neko','Kuma','Inu',
+               'Hiyoko','Penguin','Panda','Hamster','Tanuki','Hitsuzi','Tako','Koara',
+               'Tenin-san','Unknown','Girl']
+    L = []
+    for l in labels:
+        if l == 'Usagi':  L.append('ウサギ')
+        if l == 'Neko': L.append('ネコ') 
+        if l == 'Kuma': L.append('クマ') 
+        if l == 'Inu': L.append('イヌ') 
+        if l == 'Hiyoko': L.append('ヒヨコ') 
+        if l == 'Penguin': L.append('ペンギン') 
+        if l == 'Panda': L.append('パンダ') 
+        if l == 'Hamster': L.append('ハムスター') 
+        if l == 'Tanuki': L.append('タヌキ') 
+        if l == 'Hitsuzi': L.append('ヒツジ') 
+        if l == 'Tako': L.append('タコ') 
+        if l == 'Koara': L.append('コアラ') 
+        if l == 'Tenin-san': L.append('店員さん') 
+        if l == 'Unknown': L.append('かぶりもの') 
+        if l == 'Girl': L.append('ギャル') 
+        if l == 'N': L.append('N') 
+        if l == 'R': L.append('R') 
+        if l == 'SR': L.append('SR') 
+        if l == 'UR': L.append('UR') 
+    # rm multi label
+    L = list(set(L))
+
+
+    response = {'img':img_b64, 'label':L}
     return response
 
 if __name__ == '__main__':
