@@ -73,7 +73,8 @@ def handler(event, context):
                     '''
 
                     label = f'{names[int(cls)]} {conf:.2f}'
-                    labels.append(label) # label store 
+                    label_test = f'{names[int(cls)]}'
+                    labels.append(label_test) # label store 
                     plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
         
         print(f'{s}Done. ({t2 - t1:.3f}s)') 
@@ -82,6 +83,7 @@ def handler(event, context):
     with open(SAVE_PATH,'rb') as f:
         img_b64 = base64.b64encode(f.read()).decode('utf-8')
     print("done")
+    labels = set(labels)
     response = {'img':img_b64, 'label':labels}
     return response
 
