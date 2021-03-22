@@ -78,13 +78,15 @@ def handler(event, context):
                     plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
         
         print(f'{s}Done. ({t2 - t1:.3f}s)') 
-        cv2.imwrite(SAVE_PATH, im0)
-        
-    with open(SAVE_PATH,'rb') as f:
-        img_b64 = base64.b64encode(f.read()).decode('utf-8')
-    print("done")
+        #cv2.imwrite(SAVE_PATH, im0)
+    
+    #with open(SAVE_PATH,'rb') as f:
+    #    img_b64 = base64.b64encode(f.read()).decode('utf-8')
+    #print("done")
+    #print(labels)
     
     # label exchange
+    
     l_names = ['N','R','SR','UR',
                'Usagi','Neko','Kuma','Inu',
                'Hiyoko','Penguin','Panda','Hamster','Tanuki','Hitsuzi','Tako','Koara',
@@ -112,9 +114,9 @@ def handler(event, context):
         if l == 'UR': L.append('UR') 
     # rm multi label
     L = list(set(L))
-
-
-    response = {'img':img_b64, 'label':L}
+    
+    #response = {'img':img_b64, 'label':L}
+    response = {'label':L}
     return response
 
 if __name__ == '__main__':
